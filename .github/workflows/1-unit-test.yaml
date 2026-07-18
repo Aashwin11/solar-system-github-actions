@@ -38,4 +38,4 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: Mocha-test-result
-          path: test_result.xml
+          path: test-results.xml
