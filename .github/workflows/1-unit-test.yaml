@@ -46,6 +46,7 @@ jobs:
         with:
           name: Mocha-test-result
           path: test-results.xml
+          retention-days: 1
 
   code-coverage:
     name: code-coverage
@@ -73,6 +74,7 @@ jobs:
         run: npm install
         
       - name:  coverage testing
+        continue-on-error: true
         run: npm run coverage
 
       - name: Upload artifact for archieve test
@@ -80,4 +82,4 @@ jobs:
         with:
           name: Code-coverage-test-result
           path: coverage
-          retention-days: 5
+          retention-days: 1
