@@ -31,6 +31,9 @@ jobs:
       - name:  Unit testing
         run: npm test
 
+      - name: List files for debugging
+        run: ls -R
+
       - name: Upload artifact for archieve test
         uses: actions/upload-artifact@v7
         with:
