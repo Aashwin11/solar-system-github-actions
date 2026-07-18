@@ -23,7 +23,7 @@ jobs:
       - name: Setup up Node 
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 22
 
       - name: Install dependencies
         run: npm install
@@ -32,7 +32,7 @@ jobs:
         run: npm test
 
       - name: Upload artifact for archieve test
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: Mocha-test-result
           path: test-result.xml
