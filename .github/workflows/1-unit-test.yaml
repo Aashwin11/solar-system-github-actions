@@ -15,24 +15,25 @@ jobs:
 
   unit-testing:
     name: unit testing
-    strategy:
-      matrix:
-        nodejs_version: [18,19,20]
-        os: [ubuntu-latest, macos-latest]
-        exclude:
-           - nodejs_version: 18
-             os: macos-latest
-    runs-on: ${{ matrix.os }}
+    # strategy:
+    #   matrix:
+    #     nodejs_version: [18,19,20]
+    #     os: [ubuntu-latest, macos-latest]
+    #     exclude:
+    #        - nodejs_version: 18
+    #          os: macos-latest
+    # runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
       
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Setup up Node- ${{ matrix.nodejs_version }}
+      - name: Setup up Node- 18
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.nodejs_version }}
+          node-version: 18
 
       - name: Install dependencies
         run: npm install
@@ -40,11 +41,43 @@ jobs:
       - name:  Unit testing
         run: npm test
 
-      - name: List files for debugging
-        run: ls -R
-
       - name: Upload artifact for archieve test
         uses: actions/upload-artifact@v7
         with:
           name: Mocha-test-result
           path: test-results.xml
+
+  code-coverage:
+    name: code-coverage
+    # strategy:
+    #   matrix:
+    #     nodejs_version: [18,19,20]
+    #     os: [ubuntu-latest, macos-latest]
+    #     exclude:
+    #        - nodejs_version: 18
+    #          os: macos-latest
+    # runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
+      
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup up Node- 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+        
+      - name:  coverage testing
+        run: npm run coverage
+
+      - name: Upload artifact for archieve test
+        uses: actions/upload-artifact@v7
+        with:
+          name: Code-coverage-test-result
+          path: coverage
+          retention-days: 5
